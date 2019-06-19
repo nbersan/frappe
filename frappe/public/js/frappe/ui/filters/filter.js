@@ -13,26 +13,27 @@ frappe.ui.Filter = class {
 
 	set_conditions() {
 		this.conditions = [
-			['=', __('Equals')],
-			['!=', __('Not Equals')],
-			['like', __('Like')],
-			['not like', __('Not Like')],
-			['in', __('In')],
-			['not in', __('Not In')],
-			['is', __('Is')],
-			['>', '>'],
-			['<', '<'],
-			['>=', '>='],
-			['<=', '<='],
-			['Between', __('Between')],
-			['Timespan', __('Timespan')],
+			["=", __("Equals")],
+			["!=", __("Not Equals")],
+			["like", __("Like")],
+			["not like", __("Not Like")],
+			["in", __("In")],
+			["not in", __("Not In")],
+			["is", __("Is")],
+			[">", ">"],
+			["<", "<"],
+			[">=", ">="],
+			["<=", "<="],
+			["Between", __("Between")],
+			["Previous", __("Previous")],
+			["Next", __("Next")]
 		];
 
 		this.nested_set_conditions = [
-			['descendants of', __('Descendants Of')],
-			['not descendants of', __('Not Descendants Of')],
-			['ancestors of', __('Ancestors Of')],
-			['not ancestors of', __('Not Ancestors Of')],
+			["descendants of", __("Descendants Of")],
+			["not descendants of", __("Not Descendants Of")],
+			["ancestors of", __("Ancestors Of")],
+			["not ancestors of", __("Not Ancestors Of")]
 		];
 
 		this.conditions.push(...this.nested_set_conditions);
@@ -265,11 +266,7 @@ frappe.ui.Filter = class {
 		let old_text = this.field ? this.field.get_value() : null;
 		this.hide_invalid_conditions(df.fieldtype, df.original_type);
 		this.toggle_nested_set_conditions(df);
-		let field_area = this.filter_edit_area
-			.find('.filter-field')
-			.empty()
-			.get(0);
-		df.input_class = 'input-xs';
+		let field_area = this.filter_edit_area.find('.filter-field').empty().get(0);
 		let f = frappe.ui.form.make_control({
 			df: df,
 			parent: field_area,
@@ -393,13 +390,9 @@ frappe.ui.Filter = class {
 	}
 
 	toggle_nested_set_conditions(df) {
-		let show_condition =
-			df.fieldtype === 'Link' &&
-			frappe.boot.nested_set_doctypes.includes(df.options);
-		this.nested_set_conditions.forEach((condition) => {
-			this.filter_edit_area
-				.find(`.condition option[value="${condition[0]}"]`)
-				.toggle(show_condition);
+		let show_condition = df.fieldtype === "Link" && frappe.boot.nested_set_doctypes.includes(df.options);
+		this.nested_set_conditions.forEach(condition => {
+			this.filter_edit_area.find(`.condition option[value="${condition[0]}"]`).toggle(show_condition);
 		});
 	}
 };
