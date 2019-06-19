@@ -69,7 +69,7 @@ def get_oauth2_authorize_url(provider, redirect_to):
 	# relative to absolute url
 	data = {
 		"redirect_uri": get_redirect_uri(provider),
-		"state": base64.b64encode(bytes(json.dumps(state).encode("utf-8")))
+		"state": base64.b64encode(bytes(json.dumps(state)).encode("utf-8"))
 	}
 
 	oauth2_providers = get_oauth2_providers()
@@ -170,7 +170,7 @@ def login_oauth_user(data=None, provider=None, state=None, email_id=None, key=No
 
 	if isinstance(state, string_types):
 		state = base64.b64decode(state)
-		state = json.loads(state.decode("utf-8"))
+		state = json.loads(state)
 
 	if not (state and state["token"]):
 		frappe.respond_as_web_page(_("Invalid Request"), _("Token is missing"), http_status_code=417)
@@ -213,7 +213,6 @@ def login_oauth_user(data=None, provider=None, state=None, email_id=None, key=No
 		redirect_post_login(
 			desk_user=frappe.local.response.get('message') == 'Logged In',
 			redirect_to=redirect_to,
-			provider=provider
 		)
 
 def update_oauth_user(user, data, provider):
@@ -308,14 +307,12 @@ def get_last_name(data):
 def get_email(data):
 	return data.get("email") or data.get("upn") or data.get("unique_name")
 
-def redirect_post_login(desk_user, redirect_to=None, provider=None):
+def redirect_post_login(desk_user, redirect_to=None):
 	# redirect!
 	frappe.local.response["type"] = "redirect"
 
 	if not redirect_to:
 		# the #desktop is added to prevent a facebook redirect bug
-		desk_uri = "/app/workspace" if provider == 'facebook' else '/app'
-		redirect_to = desk_uri if desk_user else "/me"
-		redirect_to = frappe.utils.get_url(redirect_to)
+		redirect_to = "/desk#desktop" if desk_user else "/"
 
 	frappe.local.response["location"] = redirect_to

@@ -21,14 +21,9 @@ def get_context(context):
 
 	if frappe.session.user != "Guest":
 		if not redirect_to:
-			if frappe.session.data.user_type=="Website User":
-				redirect_to = get_home_page()
-			else:
-				redirect_to = "/app"
-
-		if redirect_to != 'login':
-			frappe.local.flags.redirect_location = redirect_to
-			raise frappe.Redirect
+			redirect_to = "/" if frappe.session.data.user_type=="Website User" else "/desk"
+		frappe.local.flags.redirect_location = redirect_to
+		raise frappe.Redirect
 
 	# get settings from site config
 	context.no_header = True
@@ -55,7 +50,7 @@ def get_context(context):
 		if (get_oauth_keys(provider) and client_secret and client_id and base_url):
 			context.provider_logins.append({
 				"name": provider,
-				"provider_name": provider_name,
+				"provider_name": frappe.get_value("Social Login Key", provider, "provider_name"),
 				"auth_url": get_oauth2_authorize_url(provider, redirect_to),
 				"icon": icon
 			})
