@@ -637,7 +637,7 @@ def rounded(num, precision=0):
 		num = floor_num if (floor_num % 2 == 0) else floor_num + 1
 	else:
 		if decimal_part == 0.5:
-			num = floor_num + 1
+			num = floor + 1
 		else:
 			num = round(num)
 
