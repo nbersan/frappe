@@ -2460,22 +2460,10 @@ forwarded@~0.1.2:
   resolved "https://registry.yarnpkg.com/forwarded/-/forwarded-0.1.2.tgz#98c23dab1175657b8c0573e8ceccd91b0ff18c84"
   integrity sha1-mMI9qxF1ZXuMBXPozszZGw/xjIQ=
 
-fragment-cache@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/fragment-cache/-/fragment-cache-0.2.1.tgz#4290fad27f13e89be7f33799c6bc5a0abfff0d19"
-  integrity sha1-QpD60n8T6Jvn8zeZxrxaCr//DRk=
-  dependencies:
-    map-cache "^0.2.2"
-
-frappe-charts@^2.0.0-rc11:
-  version "2.0.0-rc11"
-  resolved "https://registry.yarnpkg.com/frappe-charts/-/frappe-charts-2.0.0-rc11.tgz#0724fa0d43593362c075c3805ebbbe1a608fcef7"
-  integrity sha512-DY3tThT1lNGcJlRMOtIhnILtSm5h1iKysWhZAyj7yrGiOnOWbZpYx/NZzXZYwtRrWwMlYiLX2ylV76qo31ONsg==
-
-frappe-datatable@^1.15.3:
-  version "1.15.3"
-  resolved "https://registry.yarnpkg.com/frappe-datatable/-/frappe-datatable-1.15.3.tgz#1737e9aebfd363ffadffced71a3534c40e350223"
-  integrity sha512-tUE3pNbxCMX0HPKvwurLBPRAOAdS0gNo1+MpoyFSqXI7b7sp6/TCBRht6qu1Luw+VyIzBtXkJdnnqU+Uoy8iow==
+frappe-datatable@^1.13.4:
+  version "1.13.4"
+  resolved "https://registry.yarnpkg.com/frappe-datatable/-/frappe-datatable-1.13.4.tgz#eadebef82a4f80665a8e0e205b79cf190a2f36d7"
+  integrity sha512-HucWgz4giFbGNHSOHHX+Q1glgATDIs0ujyj+yl1EmyS5vYqZxY+9Up+vGJaE+ssc1bGZoPEPWbk1euSGfU6H5A==
   dependencies:
     hyperlist "^1.0.0-beta"
     lodash "^4.17.5"
