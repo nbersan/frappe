@@ -29,7 +29,7 @@ def login_via_office365(code, state):
 
 @frappe.whitelist(allow_guest=True)
 def login_via_salesforce(code, state):
-	login_via_oauth2("salesforce", code, state, decoder=json.loads)
+	login_via_oauth2("salesforce", code, state, decoder=decoder_compat)
 
 @frappe.whitelist(allow_guest=True)
 def custom(code, state):
@@ -43,4 +43,8 @@ def custom(code, state):
 		provider = path[3]
 		# Validates if provider doctype exists
 		if frappe.db.exists("Social Login Key", provider):
-			login_via_oauth2(provider, code, state, decoder=json.loads)
+			login_via_oauth2(provider, code, state, decoder=decoder_compat)
+
+def decoder_compat(b):
+	# https://github.com/litl/rauth/issues/145#issuecomment-31199471
+	return json.loads(bytes(b).decode("utf-8"))
