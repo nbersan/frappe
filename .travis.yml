@@ -68,8 +68,7 @@ install:
   - nvm install 12
 
   - pip install python-coveralls
-    # needed to install for ldap testing
-  - pip install ldap3
+
 
   - bench init frappe-bench --skip-assets --python $(which python) --frappe-path $TRAVIS_BUILD_DIR
 
@@ -91,6 +90,7 @@ install:
 
 
   - cd ~/frappe-bench
+  - ./env/bin/pip3 install ldap3
   - bench use test_site
   - bench reinstall --yes
   - bench scheduler disable
