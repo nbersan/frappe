@@ -67,7 +67,9 @@ install:
   - source ./.nvm/nvm.sh
   - nvm install 12
 
-  - pip install frappe-bench
+  - pip install python-coveralls
+    # needed to install for ldap testing
+  - pip install ldap3
 
   - bench init frappe-bench --skip-assets --python $(which python) --frappe-path $TRAVIS_BUILD_DIR
 
@@ -87,9 +89,14 @@ install:
       mysql -u root -e "CREATE USER 'test_frappe_consumer'@'localhost' IDENTIFIED BY 'test_frappe_consumer'";
       mysql -u root -e "GRANT ALL PRIVILEGES ON \`test_frappe_consumer\`.* TO 'test_frappe_consumer'@'localhost'";
 
-      mysql -u root -e "CREATE DATABASE test_frappe_producer";
-      mysql -u root -e "CREATE USER 'test_frappe_producer'@'localhost' IDENTIFIED BY 'test_frappe_producer'";
-      mysql -u root -e "GRANT ALL PRIVILEGES ON \`test_frappe_producer\`.* TO 'test_frappe_producer'@'localhost'";
+
+  - cd ~/frappe-bench
+  - bench use test_site
+  - bench reinstall --yes
+  - bench scheduler disable
+  - sed -i 's/9000/9001/g' sites/common_site_config.json
+  - bench start &
+  - sleep 10
 
       mysql -u root -e "UPDATE mysql.user SET Password=PASSWORD('travis') WHERE User='root'";
       mysql -u root -e "FLUSH PRIVILEGES";
