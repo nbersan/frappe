@@ -768,7 +768,7 @@ class Database(object):
 	def rollback(self):
 		"""`ROLLBACK` current transaction."""
 		self.sql("rollback")
-		self.begin()
+		#self.begin()
 		for obj in frappe.local.rollback_observers:
 			if hasattr(obj, "on_rollback"):
 				obj.on_rollback()
