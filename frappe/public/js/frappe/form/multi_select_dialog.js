@@ -265,8 +265,13 @@ frappe.ui.form.MultiSelectDialog = class MultiSelectDialog {
 		more_btn.hide();
 		$(".modal-dialog .list-item--head").css("z-index", 0);
 
-		if (results.length === 0) return;
-		if (more) more_btn.show();
+		if(results.length === 0) {
+			this.empty_list();
+			more_btn.hide();
+			return;
+		} else if(more) {
+			more_btn.show();
+		}
 
 		let checked = this.get_checked_values();
 
@@ -293,11 +298,11 @@ frappe.ui.form.MultiSelectDialog = class MultiSelectDialog {
 		// Remove **all** items
 		this.$results.find('.list-item-container').remove();
 
-		// Rerender checked items
-		this.render_result_list(checked, 0, false);
-	}
+	empty_list: function() {
+		this.$results.find('.list-item-container').remove();
+	},
 
-	get_results() {
+	get_results: function() {
 		let me = this;
 		let filters = this.get_query ? this.get_query().filters : {} || {};
 		let filter_fields = [];
