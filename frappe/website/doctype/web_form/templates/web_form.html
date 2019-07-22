@@ -80,6 +80,9 @@ frappe.boot = {
 		date_format: "{{ frappe.get_system_settings('date_format') or 'yyyy-mm-dd' }}",
 	}
 };
+
+frappe._messages = {{ translated_messages }};
+
 // for backward compatibility of some libs
 frappe.sys_defaults = frappe.boot.sysdefaults;
 frappe._messages = {{ translated_messages }};
