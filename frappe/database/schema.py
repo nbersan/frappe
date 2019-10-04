@@ -303,8 +303,9 @@ class DbColumn:
 
 			else:
 				# NOTE float() raise ValueError when "" or None is passed
+				print("DEFAULT IS: {}".format(self.default))
 				return float(current_def['default'])!=float(self.default)
-		except TypeError:
+		except (TypeError, ValueError):
 			return True
 
 def validate_column_name(n):
