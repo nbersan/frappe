@@ -40,8 +40,7 @@ frappe.views.ListSidebar = class ListSidebar {
 			this.sidebar.find('.sidebar-stat').remove();
 		} else {
 			this.sidebar.find('.list-stats').on('click', (e) => {
-				$(e.currentTarget).find('.stat-link').remove();
-				this.get_stats();
+				this.reload_stats();
 			});
 		}
 
@@ -253,13 +252,15 @@ frappe.views.ListSidebar = class ListSidebar {
 			let text_filter = $search_input.val().toLowerCase();
 			// Replace trailing and leading spaces
 			text_filter = text_filter.replace(/^\s+|\s+$/g, '');
-			let text;
 			for (var i = 0; i < $elements.length; i++) {
 				let text_element = $elements.eq(i).find(text_class);
 
 				let text = text_element.text().toLowerCase();
 				// Search data-name since label for current user is 'Me'
-				let name = text_element.data('name').toLowerCase();
+				let name = '';
+				if (text_element.data('name')) {
+					name = text_element.data('name').toLowerCase();
+				}
 				if (text.includes(text_filter) || name.includes(text_filter)) {
 					$elements.eq(i).css('display','');
 				} else {
@@ -285,32 +286,11 @@ frappe.views.ListSidebar = class ListSidebar {
 			args: {
 				stats: me.stats,
 				doctype: me.doctype,
-				filters: me.default_filters || []
+				// wait for list filter area to be generated before getting filters, or fallback to default filters
+				filters: (me.list_view.filter_area ? me.list_filter.get_current_filters() : me.default_filters) || []
 			},
 			callback: function(r) {
-				me.defined_category = r.message;
-				if (r.message.defined_cat) {
-					me.defined_category = r.message.defined_cat;
-					me.cats = {};
-					//structure the tag categories
-					for (var i in me.defined_category) {
-						if (me.cats[me.defined_category[i].category] === undefined) {
-							me.cats[me.defined_category[i].category] = [me.defined_category[i].tag];
-						} else {
-							me.cats[me.defined_category[i].category].push(me.defined_category[i].tag);
-						}
-						me.cat_tags[i] = me.defined_category[i].tag;
-					}
-					me.tempstats = r.message.stats;
-
-					$.each(me.cats, function(i, v) {
-						me.render_stat(i, (me.tempstats || {})["_user_tags"], v);
-					});
-					me.render_stat("_user_tags", (me.tempstats || {})["_user_tags"]);
-				} else {
-					//render normal stats
-					me.render_stat("_user_tags", (r.message.stats || {})["_user_tags"]);
-				}
+				me.render_stat("_user_tags", (r.message.stats || {})["_user_tags"]);
 				let stats_dropdown = me.sidebar.find('.list-stats-dropdown');
 				me.setup_dropdown_search(stats_dropdown,'.stat-label');
 			}
@@ -355,13 +335,14 @@ frappe.views.ListSidebar = class ListSidebar {
 			field: field,
 			stat: stats,
 			sum: sum,
-			label: field === '_user_tags' ? (tags ? __(label) : __("Tags")) : __(label),
+			label: field === '_user_tags' ? (tags ? __(label) : __("Tag")) : __(label),
 		};
 		$(frappe.render_template("list_sidebar_stat", context))
 			.on("click", ".stat-link", function() {
+				var doctype = "Tag Link";
 				var fieldname = $(this).attr('data-field');
 				var label = $(this).attr('data-label');
-				var condition = "like";
+				var condition = "=";
 				var existing = me.list_view.filter_area.filter_list.get_filter(fieldname);
 				if(existing) {
 					existing.remove();
@@ -370,7 +351,7 @@ frappe.views.ListSidebar = class ListSidebar {
 					label = "%,%";
 					condition = "not like";
 				}
-				me.list_view.filter_area.filter_list.add_filter(me.list_view.doctype, fieldname, condition, label)
+				me.list_view.filter_area.filter_list.add_filter(doctype, fieldname, condition, label)
 					.then(function() {
 						me.list_view.refresh();
 					});
@@ -406,7 +387,8 @@ frappe.views.ListSidebar = class ListSidebar {
 	}
 
 	reload_stats() {
-		this.sidebar.find(".sidebar-stat").remove();
+		this.sidebar.find(".stat-link").remove();
+		this.sidebar.find(".stat-no-records").remove();
 		this.get_stats();
 	}
 
