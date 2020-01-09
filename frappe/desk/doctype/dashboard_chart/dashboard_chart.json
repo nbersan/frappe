@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "allow_rename": 1,
  "autoname": "field:chart_name",
  "creation": "2019-01-10 12:28:06.282875",
@@ -119,7 +120,7 @@
    "fieldname": "type",
    "fieldtype": "Select",
    "label": "Type",
-   "options": "Line\nBar",
+   "options": "Line\nBar\nNumbers",
    "reqd": 1
   },
   {
@@ -187,7 +188,8 @@
    "label": "To Date"
   }
  ],
- "modified": "2019-11-18 16:20:11.529496",
+ "links": [],
+ "modified": "2020-01-08 09:55:23.082579",
  "modified_by": "Administrator",
  "module": "Desk",
  "name": "Dashboard Chart",
