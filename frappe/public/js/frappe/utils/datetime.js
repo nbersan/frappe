@@ -3,7 +3,7 @@
 
 frappe.provide('frappe.datetime');
 
-frappe.defaultDateFormat = "YYYY-MM-DD";
+frappe.defaultDateFormat = "DD-MM-YYYY";
 frappe.defaultTimeFormat = "HH:mm:ss";
 frappe.defaultDatetimeFormat = frappe.defaultDateFormat + " " + frappe.defaultTimeFormat;
 moment.defaultFormat = frappe.defaultDateFormat;
