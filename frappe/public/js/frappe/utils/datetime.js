@@ -107,7 +107,7 @@ $.extend(frappe.datetime, {
 	},
 
 	get_user_fmt: function() {
-		return frappe.sys_defaults && frappe.sys_defaults.date_format || "yyyy-mm-dd";
+		return frappe.sys_defaults && frappe.sys_defaults.date_format || "dd-mm-yyyy";
 	},
 
 	str_to_user: function(val, only_time = false) {
@@ -122,12 +122,12 @@ $.extend(frappe.datetime, {
 		if(typeof val !== "string" || val.indexOf(" ")===-1) {
 			return moment(val).format(user_fmt);
 		} else {
-			return moment(val, "YYYY-MM-DD HH:mm:ss").format(user_fmt + " HH:mm:ss");
+			return moment(val, "DD-MM-YYYY HH:mm:ss").format(user_fmt + " HH:mm:ss");
 		}
 	},
 
 	get_datetime_as_string: function(d) {
-		return moment(d).format("YYYY-MM-DD HH:mm:ss");
+		return moment(d).format("DD-MM-YYYY HH:mm:ss");
 	},
 
 	user_to_str: function(val, only_time = false) {
@@ -138,7 +138,7 @@ $.extend(frappe.datetime, {
 		}
 
 		var user_fmt = frappe.datetime.get_user_fmt().toUpperCase();
-		var system_fmt = "YYYY-MM-DD";
+		var system_fmt = "DD-MM-YYYY";
 
 		if(val.indexOf(" ")!==-1) {
 			user_fmt += " HH:mm:ss";
