@@ -13,6 +13,7 @@
   "column_break_2",
   "color",
   "date",
+  "date_end",
   "owner",
   "description_section",
   "description",
@@ -58,13 +59,12 @@
   {
    "fieldname": "color",
    "fieldtype": "Color",
+   "hidden": 1,
    "label": "Color"
   },
   {
    "fieldname": "date",
    "fieldtype": "Date",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
    "label": "Due Date",
    "oldfieldname": "date",
    "oldfieldtype": "Date"
@@ -160,13 +160,20 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Epic",
-   "options": "Production\nERP\nQuality Control\nTraining\nAdministrative\nLogistics\nTroubleshooting"
+   "options": "Production\nERP\nQuality Control\nTraining\nAdministrative / Documentation\nLogistics\nTroubleshooting\nTraining Room Reorganization"
+  },
+  {
+   "fieldname": "date_end",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Due Date End"
   }
  ],
  "icon": "fa fa-check",
  "idx": 2,
  "links": [],
- "modified": "2020-11-03 10:37:20.168233",
+ "modified": "2020-11-24 15:03:30.460338",
  "modified_by": "Administrator",
  "module": "Desk",
  "name": "ToDo",
