@@ -7,6 +7,8 @@
  "field_order": [
   "file_name",
   "is_private",
+  "cl_brk1",
+  "mop",
   "preview",
   "preview_html",
   "section_break_5",
@@ -170,6 +172,16 @@
    "fieldtype": "Check",
    "label": "Uploaded To Google Drive",
    "read_only": 1
+  },
+  {
+   "fieldname": "cl_brk1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mop",
+   "fieldtype": "Select",
+   "label": "Mode of Payment",
+   "options": "Credit Card\nWire Transfer"
   }
  ],
  "icon": "fa fa-file",

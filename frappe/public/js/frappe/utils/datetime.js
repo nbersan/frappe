@@ -3,7 +3,7 @@
 
 frappe.provide('frappe.datetime');
 
-frappe.defaultDateFormat = "YYYY-MM-DD";
+frappe.defaultDateFormat = "DD-MM-YYYY";
 frappe.defaultTimeFormat = "HH:mm:ss";
 frappe.defaultDatetimeFormat = frappe.defaultDateFormat + " " + frappe.defaultTimeFormat;
 moment.defaultFormat = frappe.defaultDateFormat;
@@ -136,7 +136,7 @@ $.extend(frappe.datetime, {
 	},
 
 	get_datetime_as_string: function(d) {
-		return moment(d).format("YYYY-MM-DD HH:mm:ss");
+		return moment(d).format("DD-MM-YYYY HH:mm:ss");
 	},
 
 	user_to_str: function(val, only_time = false) {

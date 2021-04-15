@@ -95,13 +95,13 @@
   },
   {
    "fieldname": "starts_on",
-   "fieldtype": "Datetime",
+   "fieldtype": "Date",
    "label": "Starts on",
    "reqd": 1
   },
   {
    "fieldname": "ends_on",
-   "fieldtype": "Datetime",
+   "fieldtype": "Date",
    "label": "Ends on"
   },
   {

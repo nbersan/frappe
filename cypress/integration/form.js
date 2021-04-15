@@ -1,4 +1,8 @@
 context('Form', () => {
+	beforeEach(() => {
+		cy.login();
+		cy.visit('/desk');
+	});
 	before(() => {
 		cy.login();
 		cy.visit('/app/website');
