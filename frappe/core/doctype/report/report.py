@@ -155,6 +155,9 @@ class Report(Document):
 		else:
 			columns, result = self.run_standard_report(filters, limit, user)
 
+			if params.get('add_totals_row'):
+				out = append_totals_row(out)
+
 		if as_dict:
 			result = self.build_data_dict(result, columns)
 

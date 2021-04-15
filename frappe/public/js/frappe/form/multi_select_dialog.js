@@ -302,6 +302,10 @@ frappe.ui.form.MultiSelectDialog = class MultiSelectDialog {
 		this.$results.find('.list-item-container').remove();
 	},
 
+	empty_list: function() {
+		this.$results.find('.list-item-container').remove();
+	},
+
 	get_results: function() {
 		let me = this;
 		let filters = this.get_query ? this.get_query().filters : {} || {};
